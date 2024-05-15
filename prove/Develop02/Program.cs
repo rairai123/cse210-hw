@@ -1,9 +1,5 @@
-using System;
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Hello Develop02 World!");
-    }
-}
+Menu _menu = new Menu();
+Prompt _prompt = new Prompt();
+Journal journal = new Journal();
+_menu.Display();
+Console.Write(journal.Display);
