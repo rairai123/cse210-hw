@@ -32,7 +32,6 @@ public class Menu
                     break;
                 case "2":
                     journal.Display();
-                    
                     break;
                 case "3":
                     journal.journalFind();
