@@ -1,9 +1,13 @@
-using System;
-
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop03 World!");
+        Words word = new Words();
+        Reference r = new Reference("Alma", 37, 36, 37);
+            Console.WriteLine(r.Display());
+        word.Display();
+
+
+
     }
 }
