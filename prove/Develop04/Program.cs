@@ -4,6 +4,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop04 World!");
+        // Reflect reflect = new Reflect();
+        // reflect.GetRandomPrompt1();
+        // reflect.GetRandomPrompt2();
+        Menu m = new Menu();
+        m.Display();
+
     }
 }
