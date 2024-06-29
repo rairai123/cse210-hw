@@ -33,7 +33,7 @@ public class Goals
 
     public void goalFind()
     {
-        Console.WriteLine("What is the filename for the goal file? ");
+        Console.WriteLine("What is the filename for the goal? ");
         string findGoal = Console.ReadLine() ?? String.Empty;
         string fileName = findGoal;
         string [] lines = System.IO.File.ReadAllLines(fileName);
@@ -57,7 +57,7 @@ public class Goals
         }
         Console.WriteLine("Which goal did you accomplish? ");
         string response = Console.ReadLine() ?? String.Empty;
-        Console.WriteLine($"Congratulations! You have completed {response}");
+        Console.WriteLine($"Congratulations! You have completed goal {response}");
 
     }
 }
