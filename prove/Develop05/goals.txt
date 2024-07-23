@@ -1,7 +1,0 @@
-Go to church,Attend all of church meetings every sunday,50
-Scripture Reading,Read the scriptures at least 5 minutes every morning,50
-Play volleyball,Play volleyball as physical activity,100
-Go to church,Attend all of church meetings every sunday,50
-Scripture Reading,Read the scriptures at least 5 minutes every morning,50
-Play volleyball,Play volleyball as physical activity,100
-Work,Work efficiently for 2 hours,50

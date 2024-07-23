@@ -1,63 +1,32 @@
-using System.IO;
-using System.Collections.Generic;
-public class Goals
+public abstract class Goal
 {
-    List<Create> create = new List<Create>();
+    protected string _name;
+    protected string _description;
+    protected int _points;
 
-    public void goalInput(Create createGoal)
+    public Goal(string name, string description, int points)
     {
-        create.Add(createGoal);
+        _name = name;
+        _description = description;
+        _points = points;
     }
 
-    public void Display()
+    public abstract void RecordEvent();
+    public abstract bool IsComplete();
+    public abstract string GetDetailsString();
+
+    public string GetName()
     {
-        foreach (Create c in create)
-        {
-            Console.WriteLine($"[ ] {c._name}, {c._desc}, {c._points}");
-        }
-    }
-    
-    public void goalSave()
-    {
-        string fileName = "";
-        Console.WriteLine("Please create a file name for your goals to be saved. ");
-        fileName = Console.ReadLine() ?? String.Empty;
-        using (StreamWriter outputFile = new StreamWriter(fileName))
-        {
-            foreach(Create c in create)
-            {
-                outputFile.WriteLine($"{c._name},{c._desc},{c._points}");
-            }
-        }
+        return _name;
     }
 
-    public void goalFind()
+    public int GetPoints()
     {
-        Console.WriteLine("What is the filename for the goal? ");
-        string findGoal = Console.ReadLine() ?? String.Empty;
-        string fileName = findGoal;
-        string [] lines = System.IO.File.ReadAllLines(fileName);
-        var pieces = new List<string>();
-        foreach (string line in lines)
-        {
-            string[] parts = line.Split(",");
-            var newCreate = new Create(parts[0],parts[1],Convert.ToInt32(parts[2]));
-            create.Add(newCreate);
-        }
+        return _points;
     }
 
-    public void RecordEvent()
+    public virtual string GetStringRepresentation()
     {
-        int x = 1;
-        Console.WriteLine("Your Goals are: ");
-        foreach (Create c in create)
-        {
-            Console.WriteLine($"{x}. {c._name}");
-            x++;
-        }
-        Console.WriteLine("Which goal did you accomplish? ");
-        string response = Console.ReadLine() ?? String.Empty;
-        Console.WriteLine($"Congratulations! You have completed goal {response}");
-
+        return $"{GetType().Name}:{_name},{_description},{_points}";
     }
 }
