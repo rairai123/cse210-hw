@@ -1,2 +1,11 @@
-Menu menu = new Menu();
-menu.Display();
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        VideoManager videoManager = new VideoManager();
+        Menu menu = new Menu(videoManager);
+        menu.Display();
+    }
+}

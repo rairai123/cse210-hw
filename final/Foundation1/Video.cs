@@ -3,45 +3,49 @@ public class Video
     private string _title;
     private string _author;
     private int _length;
+    private List<Comment> _comments;
 
-    List<Comment> comments = new List<Comment>();
     public Video(string title, string author, int length)
     {
         _title = title;
         _author = author;
         _length = length;
-    }
-    public void commentInput(Comment comment)
-    {
-        comments.Add(comment);
+        _comments = new List<Comment>();
     }
 
-    public string commentAmount()
+    public string GetTitle()
     {
-        return $"\nAmount of comments: {comments.Count}";
+        return _title;
     }
 
-    public void displayComments()
+    public void AddComment(Comment comment)
     {
-        foreach (Comment comment in comments)
-        {
-            Console.WriteLine($"{comment._name}: {comment._comment}\n");
-        }
+        _comments.Add(comment);
+    }
+
+    public int GetCommentCount()
+    {
+        return _comments.Count;
     }
 
     public void Display()
     {
-        Console.WriteLine($"Title: {_title}, author: {_author}, duration of video: {_length} seconds");
+        Console.WriteLine($"Title: {_title}, Author: {_author}, Duration: {_length} seconds");
+        Console.WriteLine($"Number of comments: {GetCommentCount()}");
     }
 
-    public void CleanDisplay()
+    public void DisplayComments()
     {
-        Console.WriteLine("-----------------------------------------");
+        if (_comments.Count == 0)
+        {
+            Console.WriteLine("No comments yet.");
+            return;
+        }
+
+        Console.WriteLine("Comments:");
+        foreach (Comment comment in _comments)
+        {
+            Console.WriteLine($"{comment.GetName()}: {comment.GetText()}");
+        }
     }
-
-
-
-
-    
-
 }

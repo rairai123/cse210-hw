@@ -1,71 +1,115 @@
 public class Menu
 {
-    
+    private VideoManager _videoManager;
+
+    public Menu(VideoManager videoManager)
+    {
+        _videoManager = videoManager;
+    }
+
     public void Display()
     {
-        string response = "";
-        string[] options = {"1","2","3","4"};
-        while(response != "4")
+        while (true)
         {
-            while(options.Contains(response) == false)
-            {
-                Console.WriteLine("Welcome to YouTube");
-                Console.WriteLine("Please select a YouTube video!");
-                Console.WriteLine("1. Basic first aid \n2. Summer Outfit \n3. Ballet Dancing\n4. Quit");
-                response = Console.ReadLine();
-            }
-            switch(response)
+            Console.WriteLine("Welcome to YouTube");
+            Console.WriteLine("1. Add a new video");
+            Console.WriteLine("2. View videos");
+            Console.WriteLine("3. Add a comment to a video");
+            Console.WriteLine("4. Quit");
+            Console.Write("Please select an option: ");
+
+            string response = Console.ReadLine();
+
+            switch (response)
             {
                 case "1":
-                Video video1 = new Video("Basic first aid","Hans Todd ",120);
-                Comment comment1 = new Comment("Justin Marion","Learning basic first aid has given me the confidence to handle emergencies more effectively.");
-                Comment comment2 = new Comment("Lisa Mona","I've always wanted to learn first aid, and after watching this video, I feel much more prepared. Thank you!");
-                Comment comment3 = new Comment("Apple Milder","I'm not a medical professional, but I found this video on basic first aid very informative.");
-                video1.commentInput(comment1);
-                video1.commentInput(comment2);
-                video1.commentInput(comment3);
-                video1.Display();                
-                video1.CleanDisplay();
-                Console.WriteLine(video1.commentAmount());
-                Console.WriteLine();
-                video1.displayComments();
-                video1.CleanDisplay();
-                break;
+                    AddNewVideo();
+                    break;
                 case "2":
-                Video video2 = new Video("Summer Outfit","The Rizz",240);
-                Comment comment1a = new Comment("Emily Carter", "This video on summer outfits has really inspired my wardrobe choices for the season!");
-                Comment comment2a = new Comment("Noah Smith", "I always struggle with what to wear during summer, but this video made it so much easier. Very Good!");
-                Comment comment3a = new Comment("Olivia Davis", "Even though I don't follow fashion trends closely, I found this summer outfit guide really helpful.");
-                video2.commentInput(comment1a);
-                video2.commentInput(comment2a);
-                video2.commentInput(comment3a);
-                video2.Display();                
-                video2.CleanDisplay();
-                Console.WriteLine(video2.commentAmount());
-                Console.WriteLine();
-                video2.displayComments();
-                video2.CleanDisplay();
-                break;
+                    ViewVideos();
+                    break;
                 case "3":
-                Video video3 = new Video("Ballet Dancing","Instructor Jessie",420);
-                Comment comment1b = new Comment("Sophia Martinez", "This video on ballet dancing has truly reignited my passion for dance. It's so inspiring!");
-                Comment comment2b = new Comment("James Lee", "I've always been curious about ballet, and after watching this video, I have a much greater appreciation for it.");
-                Comment comment3b = new Comment("Ella Kim", "I'm not a dancer myself, but I found this video on ballet dancing incredibly fascinating and informative.");
-                video3.commentInput(comment1b);
-                video3.commentInput(comment2b);
-                video3.commentInput(comment3b);
-                video3.Display();                
-                video3.CleanDisplay();
-                Console.WriteLine(video3.commentAmount());
-                Console.WriteLine();
-                video3.displayComments();
-                video3.CleanDisplay();
-                break;
+                    AddComment();
+                    break;
                 case "4":
-                Environment.Exit(0);
-                break;
+                    Console.WriteLine("Thank you for using YouTube. Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
-            response = "";
+
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+    }
+
+    private void AddNewVideo()
+    {
+        Console.Write("Enter video title: ");
+        string title = Console.ReadLine();
+        Console.Write("Enter video author: ");
+        string author = Console.ReadLine();
+        Console.Write("Enter video length (in seconds): ");
+        if (int.TryParse(Console.ReadLine(), out int length))
+        {
+            _videoManager.AddVideo(new Video(title, author, length));
+            Console.WriteLine("Video added successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Invalid length. Video not added.");
+        }
+    }
+
+    private void ViewVideos()
+    {
+        var videos = _videoManager.GetVideos();
+        if (videos.Count == 0)
+        {
+            Console.WriteLine("No videos available.");
+            return;
+        }
+
+        for (int i = 0; i < videos.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {videos[i].GetTitle()}");
+        }
+
+        Console.Write("Select a video to view details (or 0 to go back): ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= videos.Count)
+        {
+            videos[choice - 1].Display();
+            videos[choice - 1].DisplayComments();
+        }
+    }
+
+    private void AddComment()
+    {
+        var videos = _videoManager.GetVideos();
+        if (videos.Count == 0)
+        {
+            Console.WriteLine("No videos available to comment on.");
+            return;
+        }
+
+        for (int i = 0; i < videos.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {videos[i].GetTitle()}");
+        }
+
+        Console.Write("Select a video to add a comment (or 0 to go back): ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= videos.Count)
+        {
+            Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+            Console.Write("Enter your comment: ");
+            string commentText = Console.ReadLine();
+
+            Comment comment = new Comment(name, commentText);
+            videos[choice - 1].AddComment(comment);
+            Console.WriteLine("Comment added successfully!");
         }
     }
 }

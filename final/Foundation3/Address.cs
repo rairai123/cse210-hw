@@ -13,13 +13,8 @@ public class Address
         _country = country;
     }
 
-    public string Stringify()
+    public void Display()
     {
-        return $"{_address}\n{_city} {_state} {_country}";
-    }
-
-    public string ReturnCountry()
-    {
-        return _country;
+        Console.WriteLine($"Address: {_address}\n{_city} {_state}, {_country}");
     }
 }

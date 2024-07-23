@@ -1,57 +1,53 @@
 public class Order
 {
-    List<Product> products = new List<Product>();
-    Product pro = new Product();
-    public List<float> order = new List<float>();
-    Address add = new Address();
-    Product product = new Product();
+    private List<Product> _products = new List<Product>();
+    private float _total = 0;
 
-    public void productAmount(Product product)
+    public void AddProduct(Product product)
     {
-        products.Add(product);
+        _products.Add(product);
+        _total += product.CalculatePrice();
     }
 
-    public void displayProduct()
+    public void DisplayProducts()
     {
-        foreach (Product product in products)
+        foreach (Product product in _products)
         {
-            Console.WriteLine($"Product name: {product._name}\nQuantity: {product._quantity}\nPrice: ${product._price}");
+            Console.WriteLine($"Product name: {product.GetName()}\nQuantity: {product.GetQuantity()}\nPrice: ${product.GetPrice()}");
         }
     }
-    
-    
-    public void priceList(float _total)
+
+    public List<Product> GetProducts()
     {
-        order.Add(_total);
+        return _products;
     }
 
-    public void Tot()
+    public void CalculateShipping(string country)
     {
-        Console.WriteLine($"Total price after shipping fee: ${order.Sum()}");
-    }
-
-    public void getCountry(string _country)
-    {
-        if(_country.ToUpper() == "USA")
+        if (country.ToUpper() == "USA")
         {
             Console.WriteLine("Shipping fee within the USA is $5");
-            order.Add(5);
+            _total += 5;
         }
         else
         {
             Console.WriteLine("Shipping fee outside of the USA is $35");
-            order.Add(35);
+            _total += 35;
         }
     }
-    
-    public string packingLabel(string _name, int _id)
+
+    public void DisplayTotal()
     {
-        return $"Name: {_name}, product ID: {_id}";
-    }
-    public string shippingLabel(string _name, Address address)
-    {
-        return $"Shipping Label:\nName: {_name}\nAddress: {address._address},\n{address._city}, {address._state}, {address._country}";
+        Console.WriteLine($"Total price after shipping fee: ${_total}");
     }
 
-    
+    public string CreatePackingLabel(string customerName, int productId)
+    {
+        return $"Name: {customerName}, product ID: {productId}";
+    }
+
+    public string CreateShippingLabel(string customerName, Address address)
+    {
+        return $"Shipping Label:\nName: {customerName}\nAddress: {address.Stringify()}";
+    }
 }
