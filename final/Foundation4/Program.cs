@@ -44,7 +44,7 @@ class Program
     static void CreateCyclingActivity()
     {
         Console.WriteLine("Enter Cycling Activity details:");
-        Console.Write("Date (e.g., July 19, 2023): ");
+        Console.Write("Date (e.g., July 21, 2024): ");
         string date = Console.ReadLine();
         Console.Write("Duration (minutes): ");
         int minutes = int.Parse(Console.ReadLine());
@@ -58,7 +58,7 @@ class Program
     static void CreateRunningActivity()
     {
         Console.WriteLine("Enter Running Activity details:");
-        Console.Write("Date (e.g., July 19, 2023): ");
+        Console.Write("Date (e.g., July 21, 2024): ");
         string date = Console.ReadLine();
         Console.Write("Duration (minutes): ");
         int minutes = int.Parse(Console.ReadLine());
@@ -72,7 +72,7 @@ class Program
     static void CreateSwimmingActivity()
     {
         Console.WriteLine("Enter Swimming Activity details:");
-        Console.Write("Date (e.g., July 19, 2023): ");
+        Console.Write("Date (e.g., July 21, 2024): ");
         string date = Console.ReadLine();
         Console.Write("Duration (minutes): ");
         int minutes = int.Parse(Console.ReadLine());
